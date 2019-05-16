@@ -36,7 +36,14 @@
     :command ("bazel-flycheck-command" source-original)
     
     :error-patterns
-    ((error line-start (one-or-more not-newline) "/" (file-name) ":" line ": error: " (message (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline)) line-end))
+    ((error line-start
+	    (one-or-more not-newline) "/" (file-name) ":" line
+	    ": error: "
+	    (message (one-or-more not-newline) "\n"
+		     (one-or-more not-newline) "\n"
+		     (one-or-more not-newline) "\n"
+		     (one-or-more not-newline) "\n"
+		     (one-or-more not-newline)) line-end))
     :modes java-mode scala-mode python-mode)
 
 (add-to-list 'flycheck-checkers 'bazel)
