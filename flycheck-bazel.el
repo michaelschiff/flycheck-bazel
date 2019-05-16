@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; This package adds support for bazel to flycheck. To use it, add
+;; This package adds support for bazel to flycheck.  To use it, add
 ;; to your init.el:
 
 ;; (require 'flycheck-bazel)
@@ -33,17 +33,13 @@
 
 (flycheck-define-checker bazel
     "Bazel flychecker"
-    ; This should work, and be significantly faster (since it will only ask to compile the package
-    ; for this class
-    ;:command ("bazel-flycheck-command" (eval (buffer-name))) 
+    :command ("bazel-flycheck-command" source-original)
     
-    ; compile everything.  when caching works that should be fast enough
-    :command ("bazel" "build" "--" "//java/..." "//stats/...") 
     :error-patterns
     ((error line-start (one-or-more not-newline) "/" (file-name) ":" line ": error: " (message (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline) "\n" (one-or-more not-newline)) line-end))
-    :modes java-mode)
+    :modes java-mode scala-mode python-mode)
 
 (add-to-list 'flycheck-checkers 'bazel)
 
 (provide 'flycheck-bazel)
-;;; flycheck-bazel.el ends here~
+;;; flycheck-bazel.el ends here

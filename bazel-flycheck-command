@@ -1,0 +1,3 @@
+#! /bin/zsh
+fullname=$(bazel query `basename $1`)
+bazel query "attr('srcs', $fullname, ${fullname//:*/}:*)" | head -n 1 | xargs -I {} bazel build {}
