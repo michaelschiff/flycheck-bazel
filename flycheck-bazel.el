@@ -31,9 +31,13 @@
 ;;; Code:
 (require 'flycheck)
 
+(defconst script-folder
+  (file-name-directory (or load-file-name
+			   (bound-and-true-p byte-compile-current-file)
+			   (buffer-file-name))))
 (flycheck-define-checker bazel
     "Bazel flychecker"
-    :command ("bazel-flycheck-command" source-original)
+    :command ((eval (expand-file-name "bazel-flycheck-command" script-folder)) source-original)
     
     :error-patterns
     ((error line-start
